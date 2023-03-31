@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Screen {
@@ -15,6 +16,29 @@ public class Screen {
 
     public Screen(List<String> options){
         this.options = options;
+    }
+
+    /**
+     *
+     * @param options String[] options passed as single arg- constructs ArrayList from provided items
+     */
+    public Screen(String[] options){
+        this.options = new ArrayList<String>();
+        for (int i=0; i<options.length; i++){
+            this.options.add(options[i]);
+        }
+    }
+
+    /**
+     * Displays options on screen
+     */
+    public void render(){
+        int count = 1;
+        for (String opt : this.options){
+            System.out.printf("%d]:%s\n", count, opt);
+            count++;
+        }
+        System.out.println("Q]: QUIT");
     }
 
     /**
