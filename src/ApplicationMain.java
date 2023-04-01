@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -5,15 +6,21 @@ import java.util.Scanner;
 public class ApplicationMain {
 
     public ApplicationMain(){
+        JFrame frame1 = new JFrame("mainWindow");
+        JPanel panel1 = new mainWindow().rootPanel;
+        JTextArea textArea1 = (JTextArea) panel1.getComponent(0);
+
+        frame1.setContentPane(panel1);
+        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame1.pack();
+        frame1.setVisible(true);
         Scanner input = new Scanner(System.in);
         boolean running = true;
-
         Screen welcomeScreen = new Screen(new String[]{"Assets", "eMail", "Databases"});
         Screen currentScreen = welcomeScreen;
 
         while (running) {
-//            System.out.println("What would you like to do?");
-            currentScreen.render();
+            textArea1.setText(currentScreen.render());
             String choice = input.next();
 
             switch (choice){
@@ -36,7 +43,6 @@ public class ApplicationMain {
                 case "8":
                 case "9":
                     if (!currentScreen.getSpecificOption(Integer.parseInt(choice)).isEmpty()){
-                        //currentScreen = currentScreen.getSpecificOption(Integer.parseInt(choice));
                         System.out.println(currentScreen.getSpecificOption(Integer.parseInt(choice)));
                     }
             }

@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,13 +33,18 @@ public class Screen {
     /**
      * Displays options on screen
      */
-    public void render(){
+    public String render(){
         int count = 1;
+        String output = "";
         for (String opt : this.options){
-            System.out.printf("%d]:%s\n", count, opt);
+//            System.out.printf("%d]:%s\n", count, opt);
+            output += count + "]: " + opt + "\n";
             count++;
         }
-        System.out.println("Q]: QUIT");
+
+        output += "Q]: QUIT\n";
+        return output;
+//        System.out.println("Q]: QUIT");
     }
 
     /**
