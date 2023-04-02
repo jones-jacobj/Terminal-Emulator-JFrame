@@ -3,16 +3,57 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class ApplicationMain implements KeyListener{
     protected boolean running = true;
     protected Screen currentScreen;
+    BufferedReader reader;
+    private String windowName;
+    private String font;
+    private int fontSize;
+    private Color foregroundColor;
+    private Color backgroundColor;
+
+    /**
+     * TODO: Make more colors
+     * @param input String value of desired color i.e. "green"
+     * @return A Color object to be used in JFrame
+     */
+    protected Color stringToColor(String input){
+        input = input.toLowerCase();
+        switch (input){
+            case "green":
+                return Color.GREEN;
+            case "blue":
+                return Color.BLUE;
+            case "black":
+                return Color.BLACK;
+        }
+        return null;
+    }
 
     public ApplicationMain(){
-        ScreensDatabase database = new ScreensDatabase();
+
+        // Reads from Setttings.txt, converts user entries into Variables -> to be used later on in the program
+        try {
+            // Setting file currently has to be in a very specific format
+            reader = new BufferedReader(new FileReader("src/settings.txt"));
+            this.windowName = reader.readLine().split("= ")[1];
+            this.font = reader.readLine().split("= ")[1];
+            this.fontSize = Integer.parseInt(reader.readLine().split("= ")[1]);
+            this.foregroundColor = stringToColor(reader.readLine().split("= ")[1]);
+            this.backgroundColor = stringToColor(reader.readLine().split("= ")[1]);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        ScreensDatabase database = new ScreensDatabase();   //  Storing all possible screens here, created beforehand
 //        JFRAME SETUP
-        JFrame frame1 = new JFrame("mainWindow");
+        JFrame frame1 = new JFrame(this.windowName);
         frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame1.setVisible(true);
 
@@ -23,10 +64,10 @@ public class ApplicationMain implements KeyListener{
 //        JTEXTAREA SETUP
         JTextArea textArea1 = (JTextArea) panel1.getComponent(0);
         textArea1.addKeyListener(this);
-        Font font = new Font("VT232 Regular", Font.BOLD, 20);
+        Font font = new Font(this.font, Font.BOLD, this.fontSize);
         textArea1.setEditable(false);
-        textArea1.setForeground(Color.GREEN);
-        textArea1.setBackground(Color.BLACK);
+        textArea1.setForeground(this.foregroundColor);
+        textArea1.setBackground(this.backgroundColor);
         textArea1.setFont(font);
 
         frame1.pack();
@@ -42,10 +83,6 @@ public class ApplicationMain implements KeyListener{
 
     public static void main(String[] args) {
         new ApplicationMain();
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
     }
 
     @Override
@@ -72,6 +109,11 @@ public class ApplicationMain implements KeyListener{
                 running = false;
         }
         }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
     @Override
     public void keyReleased(KeyEvent e) {
     }

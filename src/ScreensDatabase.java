@@ -1,6 +1,9 @@
 public class ScreensDatabase {
     public Screen screen1, screen2, screen3, screen4;
 
+    /**
+     * All the different screens the user can see / interact with
+     */
     public ScreensDatabase(){
         this.screen1 = new Screen(new Entry[]{new Entry(null, "Assets"), new Entry(null, "eMail"), new Entry(null, "Databases")});
         this.screen2 = new Screen(new Entry[]{new Entry(null, "ASSETS"), new Entry(screen1, "Back")});
