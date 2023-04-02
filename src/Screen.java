@@ -1,9 +1,10 @@
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Screen {
-    private List<String> options;
+    private List<Entry> options;
 
     /**
      * EXAMPLE
@@ -15,7 +16,7 @@ public class Screen {
      * @param options   The list of available options that make up the display
      */
 
-    public Screen(List<String> options){
+    public Screen(List<Entry> options){
         this.options = options;
     }
 
@@ -23,11 +24,9 @@ public class Screen {
      *
      * @param options String[] options passed as single arg- constructs ArrayList from provided items
      */
-    public Screen(String[] options){
-        this.options = new ArrayList<String>();
-        for (int i=0; i<options.length; i++){
-            this.options.add(options[i]);
-        }
+    public Screen(Entry[] options){
+        this.options = new ArrayList<Entry>();
+        this.options.addAll(Arrays.asList(options));
     }
 
     /**
@@ -36,9 +35,9 @@ public class Screen {
     public String render(){
         int count = 1;
         String output = "";
-        for (String opt : this.options){
+        for (Entry opt : this.options){
 //            System.out.printf("%d]:%s\n", count, opt);
-            output += count + "]: " + opt + "\n";
+            output += count + "]: " + opt.getContents() + "\n";
             count++;
         }
 
@@ -51,7 +50,7 @@ public class Screen {
      *
      * @return Returns all available options to render the 'screen' for user interaction
      */
-    public List<String> getAllOptions(){
+    public List<Entry> getAllOptions(){
         return this.options;
     }
 
@@ -60,7 +59,7 @@ public class Screen {
      * @param option The id as it is displayed to user (will automatically remove 1 to convert to array position)
      * @return Returns the option located at that position
      */
-    public String getSpecificOption(int option){
+    public Entry getSpecificOption(int option){
         return this.options.get(option-1);
     }
 
@@ -68,7 +67,7 @@ public class Screen {
      *
      * @param option The string option to append to the available options
      */
-    public void appendOption(String option){
+    public void appendOption(Entry option){
         this.options.add(option);
     }
 
@@ -76,7 +75,7 @@ public class Screen {
      *
      * @param option The string option that appears, will attempt to remove by matching value
      */
-    public void removeOption(String option){
+    public void removeOption(Entry option){
         this.options.remove(option);
     }
 
@@ -86,5 +85,9 @@ public class Screen {
      */
     public void removeOptionById(int id){
         this.options.remove(this.options.get(id-1));
+    }
+
+    public Screen getDestinationByInt(int choice){
+        return this.options.get(choice-1).getDestination();
     }
 }

@@ -3,14 +3,14 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.util.EventListener;
 import java.util.Scanner;
 
 public class ApplicationMain implements KeyListener{
     protected boolean running = true;
+    protected Screen currentScreen;
 
     public ApplicationMain(){
+        ScreensDatabase database = new ScreensDatabase();
 //        JFRAME SETUP
         JFrame frame1 = new JFrame("mainWindow");
         frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,12 +30,7 @@ public class ApplicationMain implements KeyListener{
         textArea1.setFont(font);
 
         frame1.pack();
-
-        Scanner input = new Scanner(System.in);
-        Screen welcomeScreen = new Screen(new String[]{"Assets", "eMail", "Databases"});
-        Screen currentScreen = welcomeScreen;
-
-
+        this.currentScreen = database.screen1;
 
         while (running) {
             textArea1.setText(currentScreen.render());
@@ -58,10 +53,20 @@ public class ApplicationMain implements KeyListener{
         char choice = e.getKeyChar();
         switch (choice){
             case '1':
-                System.out.println("1 was pressed!");
-                break;
             case '2':
-                System.out.println("2 was pressed!");
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+                System.out.println(this.currentScreen);
+                int intChoice = Integer.parseInt(String.valueOf(choice));
+                try{
+                    if (this.currentScreen.getSpecificOption(intChoice).getDestination() != null) {
+                        this.currentScreen = this.currentScreen.getSpecificOption(intChoice).getDestination();
+                    }
+                } catch (NullPointerException npe){
+                    npe.printStackTrace();
+                }
                 break;
             case 'q':
                 System.out.println("Goodbye!");
