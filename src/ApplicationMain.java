@@ -58,7 +58,6 @@ public class ApplicationMain implements KeyListener{
             case '4':
             case '5':
             case '6':
-                System.out.println(this.currentScreen);
                 int intChoice = Integer.parseInt(String.valueOf(choice));
                 try{
                     if (this.currentScreen.getSpecificOption(intChoice).getDestination() != null) {

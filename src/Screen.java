@@ -41,7 +41,7 @@ public class Screen {
             count++;
         }
 
-        output += "Q]: QUIT\n";
+        output += "\n\n\n\n\nQ]: QUIT\n";
         return output;
 //        System.out.println("Q]: QUIT");
     }
@@ -87,6 +87,11 @@ public class Screen {
         this.options.remove(this.options.get(id-1));
     }
 
+    /**
+     *
+     * @param choice Integer that located the Entry's destination screen
+     * @return The screen found attached to that Entry
+     */
     public Screen getDestinationByInt(int choice){
         return this.options.get(choice-1).getDestination();
     }
