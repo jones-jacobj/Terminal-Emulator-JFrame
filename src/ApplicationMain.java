@@ -52,6 +52,7 @@ public class ApplicationMain implements KeyListener{
             e.printStackTrace();
         }
         this.database = new ScreensDatabase();   //  Storing all possible screens here, created beforehand
+
 //        JFRAME SETUP1
         JFrame frame1 = new JFrame(this.windowName);
         frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
