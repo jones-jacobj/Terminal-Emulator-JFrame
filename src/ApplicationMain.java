@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.text.Position;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -6,7 +7,6 @@ import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class ApplicationMain implements KeyListener{
     protected boolean running = true;
@@ -26,19 +26,21 @@ public class ApplicationMain implements KeyListener{
      */
     protected Color stringToColor(String input){
         input = input.toLowerCase();
-        switch (input){
-            case "green":
-                return Color.GREEN;
-            case "blue":
-                return Color.BLUE;
-            case "black":
-                return Color.BLACK;
-        }
-        return null;
+        return switch (input) {
+            case "black" -> Color.BLACK;
+            case "blue" -> Color.BLUE;
+            case "gray" -> Color.GRAY;
+            case "green" -> Color.GREEN;
+            case "orange" -> Color.orange;
+            case "pink" -> Color.pink;
+            case "red" -> Color.red;
+            case "yellow" -> Color.yellow;
+            case "white" -> Color.white;
+            default -> null;
+        };
     }
 
     public ApplicationMain(){
-
         // Reads from Setttings.txt, converts user entries into Variables -> to be used later on in the program
         try {
             // Setting file currently has to be in a very specific format
@@ -96,6 +98,9 @@ public class ApplicationMain implements KeyListener{
             case '4':
             case '5':
             case '6':
+            case '7':
+            case '8':
+            case '9':
                 int intChoice = Integer.parseInt(String.valueOf(choice));
                 try{
                     if (this.currentScreen.getSpecificOption(intChoice).getDestination() != null) {

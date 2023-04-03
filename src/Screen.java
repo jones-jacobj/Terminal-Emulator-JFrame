@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Screen {
     private List<Entry> options;
-    private boolean firstScreen;
+    private final boolean firstScreen;
 
     /**
      * EXAMPLE
