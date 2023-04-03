@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Screen {
     private List<Entry> options;
+    private boolean firstScreen;
 
     /**
      * EXAMPLE
@@ -16,17 +17,18 @@ public class Screen {
      * @param options   The list of available options that make up the display
      */
 
-    public Screen(List<Entry> options){
+    public Screen(List<Entry> options, boolean firstScreen){
         this.options = options;
+        this.firstScreen = firstScreen;
     }
 
     /**
      *
      * @param options String[] options passed as single arg- constructs ArrayList from provided items
      */
-    public Screen(Entry[] options){
-        this.options = new ArrayList<Entry>();
-        this.options.addAll(Arrays.asList(options));
+    public Screen(List<Entry> options){
+        this.options = options;
+        this.firstScreen = false;
     }
 
     /**
@@ -40,8 +42,11 @@ public class Screen {
             output += count + "]: " + opt.getContents() + "\n";
             count++;
         }
-
-        output += "\n\n\n\n\nQ]: QUIT\n";
+        output += "\n\n\n\n\n";
+        if(!this.firstScreen){
+            output += "B]: BACK\n";
+        }
+        output += "Q]: QUIT\n";
         return output;
 //        System.out.println("Q]: QUIT");
     }

@@ -17,6 +17,7 @@ public class ApplicationMain implements KeyListener{
     private int fontSize;
     private Color foregroundColor;
     private Color backgroundColor;
+    protected ScreensDatabase database;
 
     /**
      * TODO: Make more colors
@@ -50,9 +51,8 @@ public class ApplicationMain implements KeyListener{
         } catch (IOException e){
             e.printStackTrace();
         }
-
-        ScreensDatabase database = new ScreensDatabase();   //  Storing all possible screens here, created beforehand
-//        JFRAME SETUP
+        this.database = new ScreensDatabase();   //  Storing all possible screens here, created beforehand
+//        JFRAME SETUP1
         JFrame frame1 = new JFrame(this.windowName);
         frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame1.setVisible(true);
@@ -71,7 +71,7 @@ public class ApplicationMain implements KeyListener{
         textArea1.setFont(font);
 
         frame1.pack();
-        this.currentScreen = database.screen1;
+        this.currentScreen = this.database.screen1;
 
         while (running) {
             textArea1.setText(currentScreen.render());
@@ -103,6 +103,9 @@ public class ApplicationMain implements KeyListener{
                 } catch (NullPointerException npe){
                     npe.printStackTrace();
                 }
+                break;
+            case 'b':
+                this.currentScreen = this.database.screen1;
                 break;
             case 'q':
                 System.out.println("Goodbye!");
