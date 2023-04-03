@@ -1,5 +1,0 @@
-windowName = Main Window
-font = VT232 Regular
-fontSize = 20
-foregroundColor = GREEN
-backgroundColor = BLACK
