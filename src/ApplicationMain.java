@@ -9,15 +9,14 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class ApplicationMain implements KeyListener{
-    protected boolean running = true;
-    protected Screen currentScreen;
-    BufferedReader reader;
+    private boolean running = true;
+    private Screen currentScreen;
+    private final ScreensDatabase database;
     private String windowName;
     private String font;
     private int fontSize;
     private Color foregroundColor;
     private Color backgroundColor;
-    protected ScreensDatabase database;
 
     /**
      * TODO: Make more colors
@@ -44,7 +43,7 @@ public class ApplicationMain implements KeyListener{
         // Reads from Setttings.txt, converts user entries into Variables -> to be used later on in the program
         try {
             // Setting file currently has to be in a very specific format
-            reader = new BufferedReader(new FileReader("src/settings.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("src/settings.txt"));
             this.windowName = reader.readLine().split("= ")[1];
             this.font = reader.readLine().split("= ")[1];
             this.fontSize = Integer.parseInt(reader.readLine().split("= ")[1]);
@@ -109,6 +108,7 @@ public class ApplicationMain implements KeyListener{
                 } catch (NullPointerException npe){
                     npe.printStackTrace();
                 }
+
                 break;
             case 'b':
                 this.currentScreen = this.database.screen1;
