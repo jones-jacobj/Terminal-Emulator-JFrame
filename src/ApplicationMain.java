@@ -77,6 +77,11 @@ public class ApplicationMain implements KeyListener{
 
         while (running) {
             textArea1.setText(currentScreen.render());
+            try {
+                Thread.sleep(1000);
+            }catch (InterruptedException exp){
+                exp.printStackTrace();
+            }
         }
 
 //        When the program quits (i.e. running == false) send the close signal to the JFrame
@@ -116,7 +121,7 @@ public class ApplicationMain implements KeyListener{
             case 'q':
                 System.out.println("Goodbye!");
                 running = false;
-        }
+            }
         }
 
     @Override
