@@ -78,7 +78,7 @@ public class ApplicationMain implements KeyListener{
         while (running) {
             textArea1.setText(currentScreen.render());
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             }catch (InterruptedException exp){
                 exp.printStackTrace();
             }
