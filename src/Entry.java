@@ -1,30 +1,46 @@
 public class Entry {
-    private Screen destination;
-    private String contents;
+    private Screen child;
+    private Screen parent;
+    private String label;
 
     /**
-     * Represents the specific options on the screen, Entries also allow user to navigate Screens
-     * @param destination   Screen to go to when this option is chosen (if any)
-     * @param contents      String to print on screen
+     *
+     * @param child
+     * @param label
+     * @param parent
      */
-    public Entry(Screen destination, String contents){
-        this.destination = destination;
-        this.contents = contents;
+    public Entry(Screen child, String label, Screen parent){
+        this.child = child;
+        this.label = label;
+        this.parent = parent;
     }
 
-    public void setDestination(Screen destination) {
-        this.destination = destination;
+    public Entry(Screen child, String label){
+        this.child = child;
+        this.label = label;
     }
 
-    public void setContents(String contents) {
-        this.contents = contents;
+    public void setchild(Screen child) {
+        this.child = child;
     }
 
-    public Screen getDestination() {
-        return destination;
+    public void setlabel(String label) {
+        this.label = label;
     }
 
-    public String getContents() {
-        return contents;
+    public Screen getchild() {
+        return child;
+    }
+
+    public String getlabel() {
+        return label;
+    }
+
+    public Screen getParent() {
+        return parent;
+    }
+
+    public void setParent(Screen parent) {
+        this.parent = parent;
     }
 }

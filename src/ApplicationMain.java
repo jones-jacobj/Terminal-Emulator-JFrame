@@ -11,6 +11,7 @@ import java.io.IOException;
 public class ApplicationMain implements KeyListener{
     private boolean running = true;
     private Screen currentScreen;
+    private Screen parentScreen;
     private final ScreensDatabase database;
     private String windowName;
     private String font;
@@ -76,7 +77,7 @@ public class ApplicationMain implements KeyListener{
         this.currentScreen = this.database.screen1;
 
         while (running) {
-            textArea1.setText(currentScreen.render());
+            textArea1.setText(currentScreen.render(this.parentScreen));
             try {
                 Thread.sleep(500);
             }catch (InterruptedException exp){
@@ -94,6 +95,7 @@ public class ApplicationMain implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
+        System.out.println((this.parentScreen));
         char choice = e.getKeyChar();
         switch (choice){
             case '1':
@@ -107,8 +109,14 @@ public class ApplicationMain implements KeyListener{
             case '9':
                 int intChoice = Integer.parseInt(String.valueOf(choice));
                 try{
-                    if (this.currentScreen.getSpecificOption(intChoice).getDestination() != null) {
-                        this.currentScreen = this.currentScreen.getSpecificOption(intChoice).getDestination();
+                    Entry desiredEntry = this.currentScreen.getSpecificOption(intChoice);
+                    if (desiredEntry.getchild() != null) {
+                        this.currentScreen = desiredEntry.getchild();
+                    }
+                    if (desiredEntry.getParent() != null){
+                        this.parentScreen = desiredEntry.getParent();
+                    } else {
+                        this.parentScreen = null;
                     }
                 } catch (NullPointerException npe){
                     npe.printStackTrace();
@@ -116,7 +124,10 @@ public class ApplicationMain implements KeyListener{
 
                 break;
             case 'b':
-                this.currentScreen = this.database.screen1;
+                if (this.parentScreen != null){
+                    this.currentScreen = parentScreen;
+                    parentScreen = this.currentScreen;
+                }
                 break;
             case 'q':
                 System.out.println("Goodbye!");

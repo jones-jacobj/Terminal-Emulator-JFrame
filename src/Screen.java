@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Screen {
     private List<Entry> options;
-    private final boolean firstScreen;
 
     /**
      * EXAMPLE
@@ -17,33 +16,23 @@ public class Screen {
      * @param options   The list of available options that make up the display
      */
 
-    public Screen(List<Entry> options, boolean firstScreen){
-        this.options = options;
-        this.firstScreen = firstScreen;
-    }
-
-    /**
-     *
-     * @param options String[] options passed as single arg- constructs ArrayList from provided items
-     */
     public Screen(List<Entry> options){
         this.options = options;
-        this.firstScreen = false;
     }
 
     /**
      * Displays options on screen
      */
-    public String render(){
+    public String render(Screen parentScreen){
         int count = 1;
         String output = "";
         for (Entry opt : this.options){
 //            System.out.printf("%d]:%s\n", count, opt);
-            output += count + "]: " + opt.getContents() + "\n";
+            output += count + "]: " + opt.getlabel() + "\n";
             count++;
         }
         output += "\n\n\n\n\n";
-        if(!this.firstScreen){
+        if(parentScreen != null){
             output += "B]: BACK\n";
         }
         output += "Q]: QUIT\n";
@@ -94,10 +83,10 @@ public class Screen {
 
     /**
      *
-     * @param choice Integer that located the Entry's destination screen
+     * @param choice Integer that located the Entry's child screen
      * @return The screen found attached to that Entry
      */
-    public Screen getDestinationByInt(int choice){
-        return this.options.get(choice-1).getDestination();
+    public Screen getchildByInt(int choice){
+        return this.options.get(choice-1).getchild();
     }
 }
