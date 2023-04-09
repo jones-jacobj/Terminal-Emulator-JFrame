@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,7 +13,7 @@ import java.io.IOException;
 public class ApplicationMain implements KeyListener{
     private boolean running = true;
     private Screen currentScreen;
-    private Screen parentScreen;
+    private ArrayList<Screen> history;
     private final ScreensDatabase database;
     private String windowName;
     private String font;
@@ -54,6 +56,7 @@ public class ApplicationMain implements KeyListener{
             e.printStackTrace();
         }
         this.database = new ScreensDatabase();   //  Storing all possible screens here, created beforehand
+        this.history = new ArrayList<Screen>();
 
 //        JFRAME SETUP1
         JFrame frame1 = new JFrame(this.windowName);
@@ -77,7 +80,7 @@ public class ApplicationMain implements KeyListener{
         this.currentScreen = this.database.screen1;
 
         while (running) {
-            textArea1.setText(currentScreen.render(this.parentScreen));
+            textArea1.setText(currentScreen.render(this.history));
             try {
                 Thread.sleep(500);
             }catch (InterruptedException exp){
@@ -95,7 +98,6 @@ public class ApplicationMain implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println((this.parentScreen));
         char choice = e.getKeyChar();
         switch (choice){
             case '1':
@@ -111,12 +113,8 @@ public class ApplicationMain implements KeyListener{
                 try{
                     Entry desiredEntry = this.currentScreen.getSpecificOption(intChoice);
                     if (desiredEntry.getchild() != null) {
+                        this.history.add(this.currentScreen);
                         this.currentScreen = desiredEntry.getchild();
-                    }
-                    if (desiredEntry.getParent() != null){
-                        this.parentScreen = desiredEntry.getParent();
-                    } else {
-                        this.parentScreen = null;
                     }
                 } catch (NullPointerException npe){
                     npe.printStackTrace();
@@ -124,9 +122,9 @@ public class ApplicationMain implements KeyListener{
 
                 break;
             case 'b':
-                if (this.parentScreen != null){
-                    this.currentScreen = parentScreen;
-                    parentScreen = this.currentScreen;
+                if (this.history.size() > 0){
+                    this.currentScreen = this.history.get(this.history.size()-1);
+                    this.history.remove(this.currentScreen);
                 }
                 break;
             case 'q':

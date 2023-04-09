@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Screen {
@@ -13,7 +12,7 @@ public class Screen {
      * 3]: Database
      * 4]: Utilities
      * //EXAMPLE
-     * @param options   The list of available options that make up the display
+     * @param options   The ArrayList of available options that make up the display
      */
 
     public Screen(List<Entry> options){
@@ -23,7 +22,7 @@ public class Screen {
     /**
      * Displays options on screen
      */
-    public String render(Screen parentScreen){
+    public String render(ArrayList<Screen> history){
         int count = 1;
         String output = "";
         for (Entry opt : this.options){
@@ -32,9 +31,12 @@ public class Screen {
             count++;
         }
         output += "\n\n\n\n\n";
-        if(parentScreen != null){
-            output += "B]: BACK\n";
+        if (history != null) {
+            if (history.size() > 0) {
+                output += "B]: BACK\n";
+            }
         }
+
         output += "Q]: QUIT\n";
         return output;
 //        System.out.println("Q]: QUIT");

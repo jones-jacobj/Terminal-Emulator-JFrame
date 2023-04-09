@@ -7,14 +7,7 @@ public class Entry {
      *
      * @param child
      * @param label
-     * @param parent
      */
-    public Entry(Screen child, String label, Screen parent){
-        this.child = child;
-        this.label = label;
-        this.parent = parent;
-    }
-
     public Entry(Screen child, String label){
         this.child = child;
         this.label = label;
@@ -34,13 +27,5 @@ public class Entry {
 
     public String getlabel() {
         return label;
-    }
-
-    public Screen getParent() {
-        return parent;
-    }
-
-    public void setParent(Screen parent) {
-        this.parent = parent;
     }
 }
