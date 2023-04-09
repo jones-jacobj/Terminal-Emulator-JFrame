@@ -12,7 +12,6 @@ public class ApplicationMain implements KeyListener{
     private boolean running = true;
     private Screen currentScreen;
     private Screen parentScreen;
-    private final ScreensDatabase database;
     private String windowName;
     private String font;
     private int fontSize;
@@ -53,7 +52,7 @@ public class ApplicationMain implements KeyListener{
         } catch (IOException e){
             e.printStackTrace();
         }
-        this.database = new ScreensDatabase();   //  Storing all possible screens here, created beforehand
+        ScreensDatabase database = new ScreensDatabase();   //  Storing all possible screens here, created beforehand
 
 //        JFRAME SETUP1
         JFrame frame1 = new JFrame(this.windowName);
@@ -74,7 +73,7 @@ public class ApplicationMain implements KeyListener{
         textArea1.setFont(font);
 
         frame1.pack();
-        this.currentScreen = this.database.screen1;
+        this.currentScreen = database.screen1;
 
         while (running) {
             textArea1.setText(currentScreen.render(this.parentScreen));
