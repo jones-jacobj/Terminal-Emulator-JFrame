@@ -1,10 +1,8 @@
 import javax.swing.*;
-import javax.swing.text.Position;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.FileReader;

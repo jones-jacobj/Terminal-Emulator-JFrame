@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +30,8 @@ public class Screen {
             count++;
         }
         output += "\n\n\n\n\n";
-        if (history != null) {
+
+        if (history != null) {  // Is there is a previous page / i.e. a parent screen
             if (history.size() > 0) {
                 output += "B]: BACK\n";
             }
